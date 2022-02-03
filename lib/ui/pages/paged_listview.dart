@@ -3,6 +3,7 @@ import 'package:kotuko_coding_challange/core/models/list_info_model.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:kotuko_coding_challange/core/service/airline_api.dart';
 import 'package:kotuko_coding_challange/ui/components/List_item_tile.dart';
+import 'package:kotuko_coding_challange/ui/pages/flight_detail_page.dart';
 
 class PagedItemListView extends StatefulWidget {
   final AirlineApi? airlineApi;
@@ -60,8 +61,25 @@ class _PagedItemListViewState extends State<PagedItemListView> {
       builderDelegate: PagedChildBuilderDelegate<ListInfoModel>(
         itemBuilder: (context, item, index) {
           print("builder called");
-          return ListItemTile(
-            listInfoModel: item,
+          return GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => AirlineDetailPage(
+                    airlineCountry: item.airlineCountry,
+                    airlineLogo: item.airlineLogo,
+                    airlineName: item.airlineName,
+                    establishedDate: item.airlineEstablishedDate,
+                    slogan: item.airlineSlogan,
+                    website: item.airlineWebsite,
+                  ),
+                ),
+              );
+            },
+            child: ListItemTile(
+              listInfoModel: item,
+            ),
           );
         },
       ),
