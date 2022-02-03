@@ -1,8 +1,10 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:kotuko_coding_challange/core/models/list_info_model.dart';
 
 class AirlineApi {
+  List<ListInfoModel> modelList = [];
   String trigger =
       "https://api.instantwebtools.net/v1/passenger?page=0&size=10";
 
@@ -12,12 +14,34 @@ class AirlineApi {
 
     try {
       http.Response response = await http.get(Uri.parse(trigger));
-      print("The json decode is ${response.body}");
-      return jsonDecode(response.body);
+      // print("The json decode is ${response.body}");
+      final decodeData = jsonDecode(response.body);
+      return decodeData;
+      // print(decodeData['data']);
+      // return decodeData['data'];
     } catch (e) {
       print("ERROR occured");
       print(e);
       return {"error": e};
     }
+  }
+
+  Future<List<ListInfoModel>> getModelList(int offset, int limit) async {
+    print("get model list called");
+
+    final temp = await getPassengerWithSize(page: offset, size: limit);
+
+    print("temp data legth is ${temp["data"].length}");
+
+    for (int i = offset; i <= limit; i++) {
+      print("inside for loop");
+
+      modelList.add(ListInfoModel.fromMap(temp["data"][i]));
+      print(temp["data"][i]["name"]);
+    }
+
+    print(modelList);
+
+    return modelList;
   }
 }

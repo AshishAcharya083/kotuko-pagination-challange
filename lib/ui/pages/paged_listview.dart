@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:kotuko_coding_challange/core/models/list_info_model.dart';
-import 'package:kotuko_coding_challange/core/models/repository.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:kotuko_coding_challange/core/service/airline_api.dart';
+import 'package:kotuko_coding_challange/ui/components/List_item_tile.dart';
 
-class PagedListView extends StatefulWidget {
-  final Repository? repository;
+class PagedItemListView extends StatefulWidget {
+  final AirlineApi? airlineApi;
 
-  // PagedListView({this.repository}) : assert(repository != null);
-
-  PagedListView({this.repository});
+  PagedItemListView({this.airlineApi});
   @override
-  _PagedListViewState createState() => _PagedListViewState();
+  _PagedItemListViewState createState() => _PagedItemListViewState();
 }
 
-class _PagedListViewState extends State<PagedListView> {
+class _PagedItemListViewState extends State<PagedItemListView> {
   final _pagingController = PagingController<int, ListInfoModel>(
     // 2
-    firstPageKey: 0,
+    firstPageKey: 1,
   );
 
   @override
@@ -28,7 +27,24 @@ class _PagedListViewState extends State<PagedListView> {
   }
 
   Future<void> _fetchPage(int pageKey) async {
-    // TODO: Implement the function's body.
+    // try {
+    final newPage = await widget.airlineApi!.getModelList(pageKey, 8);
+    print('new page length is ${newPage.length}');
+    final isLastPage = newPage.length < 8;
+
+    final previouslyFetchedItemsCount = _pagingController.itemList?.length;
+
+    if (isLastPage) {
+      _pagingController.appendLastPage(newPage);
+    } else {
+      final nextPageKey = pageKey + newPage.length;
+      _pagingController.appendPage(newPage, nextPageKey);
+    }
+    // }
+    // catch (e) {
+    //   print("The paging controller error is $e");
+    //   _pagingController.error = e;
+    // }
   }
 
   @override
@@ -39,6 +55,16 @@ class _PagedListViewState extends State<PagedListView> {
 
   @override
   Widget build(BuildContext context) {
-    return Placeholder();
+    return PagedListView(
+      pagingController: _pagingController,
+      builderDelegate: PagedChildBuilderDelegate<ListInfoModel>(
+        itemBuilder: (context, item, index) {
+          print("builder called");
+          return ListItemTile(
+            listInfoModel: item,
+          );
+        },
+      ),
+    );
   }
 }

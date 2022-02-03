@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:kotuko_coding_challange/core/models/list_info_model.dart';
 import 'package:kotuko_coding_challange/utils/screen_size.dart';
 
 class ListItemTile extends StatelessWidget {
-  final String passengerName;
-  final String numberOfFlights;
+  final ListInfoModel? listInfoModel;
 
-  ListItemTile(this.passengerName, this.numberOfFlights);
+  ListItemTile({this.listInfoModel});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -25,7 +25,7 @@ class ListItemTile extends StatelessWidget {
             CircleAvatar(
               radius: 30,
               backgroundImage: CachedNetworkImageProvider(
-                'https://cdn.logojoy.com/wp-content/uploads/2018/05/30142202/1_big.jpg',
+                listInfoModel!.airlineLogo ?? "",
               ),
             ),
             Container(
@@ -35,7 +35,7 @@ class ListItemTile extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    passengerName,
+                    listInfoModel!.passengerName ?? "",
                     style: TextStyle(
                         fontSize: 18,
                         color: Colors.black,
@@ -54,7 +54,7 @@ class ListItemTile extends StatelessWidget {
                               color: Colors.black,
                             )),
                         TextSpan(
-                          text: numberOfFlights,
+                          text: listInfoModel!.numberOfTrips,
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,

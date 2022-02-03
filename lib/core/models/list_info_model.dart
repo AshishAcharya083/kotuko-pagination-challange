@@ -19,9 +19,9 @@ class ListInfoModel {
 
   factory ListInfoModel.fromMap(Map<String, dynamic> map) {
     return ListInfoModel(
-      passengerName: map["id"],
+      passengerName: map["name"],
       airlineLogo: map["airline"][0]["logo"],
-      numberOfTrips: map["trips"],
+      numberOfTrips: map["trips"].toString(),
       airlineCountry: map["airline"][0]["country"],
       airlineEstablishedDate: map["airline"][0]["established"],
       airlineSlogan: map["airline"][0]["slogan"],

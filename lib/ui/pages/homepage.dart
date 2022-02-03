@@ -13,17 +13,19 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  AirlineApi? airlineApi;
   @override
   void initState() {
-    AirlineApi airlineApi = AirlineApi();
-    airlineApi.getPassengerWithSize(page: 0, size: 3);
+    airlineApi = AirlineApi();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: PagedListView(),
+      body: PagedItemListView(
+        airlineApi: airlineApi,
+      ),
     );
   }
 }
