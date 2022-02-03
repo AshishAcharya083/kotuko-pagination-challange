@@ -21,7 +21,7 @@ class ListInfoModel {
     return ListInfoModel(
       passengerName: map["name"],
       airlineLogo: map["airline"][0]["logo"],
-      numberOfTrips: map["trips"].toString(),
+      numberOfTrips: map["trips"] == null ? "0" : map["trips"].toString(),
       airlineCountry: map["airline"][0]["country"],
       airlineEstablishedDate: map["airline"][0]["established"],
       airlineSlogan: map["airline"][0]["slogan"],

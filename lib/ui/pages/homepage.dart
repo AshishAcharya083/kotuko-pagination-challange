@@ -23,6 +23,15 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        title: Text(
+          "Passenger Details",
+          style: TextStyle(color: Colors.black, fontSize: 24),
+        ),
+      ),
       body: PagedItemListView(
         airlineApi: airlineApi,
       ),

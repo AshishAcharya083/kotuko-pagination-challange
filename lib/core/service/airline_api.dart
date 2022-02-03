@@ -5,15 +5,14 @@ import 'package:kotuko_coding_challange/core/models/list_info_model.dart';
 
 class AirlineApi {
   List<ListInfoModel> modelList = [];
-  String trigger =
-      "https://api.instantwebtools.net/v1/passenger?page=0&size=10";
 
   Future<Map<String, dynamic>> getPassengerWithSize(
       {int? page, int? size}) async {
     print("getPassenger CALLED");
 
     try {
-      http.Response response = await http.get(Uri.parse(trigger));
+      http.Response response = await http.get(Uri.parse(
+          "https://api.instantwebtools.net/v1/passenger?page=$page&size=$size"));
       // print("The json decode is ${response.body}");
       final decodeData = jsonDecode(response.body);
       return decodeData;
@@ -33,7 +32,7 @@ class AirlineApi {
 
     print("temp data legth is ${temp["data"].length}");
 
-    for (int i = offset; i <= limit; i++) {
+    for (int i = 0; i < limit; i++) {
       print("inside for loop");
 
       modelList.add(ListInfoModel.fromMap(temp["data"][i]));
