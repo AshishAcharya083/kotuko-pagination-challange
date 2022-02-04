@@ -5,6 +5,7 @@ import 'package:kotuko_coding_challange/ui/pages/homepage.dart';
 import 'package:kotuko_coding_challange/core/service/http_overrides.dart';
 
 void main() {
+  /// http overrides for certification
   HttpOverrides.global = MyHttpOverrides();
   runApp(const MyApp());
 }
@@ -12,7 +13,6 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.f
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

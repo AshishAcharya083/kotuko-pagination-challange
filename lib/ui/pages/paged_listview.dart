@@ -28,24 +28,26 @@ class _PagedItemListViewState extends State<PagedItemListView> {
   }
 
   Future<void> _fetchPage(int pageKey) async {
-    // try {
-    final newPage = await widget.airlineApi!.getModelList(pageKey, 5);
-    print('new page length is ${newPage.length}');
-    final isLastPage = newPage.length < 5;
+    /// _fetchPage function fetches the new page if it reaches to the last element of currently fetched list
 
-    final previouslyFetchedItemsCount = _pagingController.itemList?.length;
+    try {
+      final newPage = await widget.airlineApi!.getModelList(pageKey, 5);
 
-    if (isLastPage) {
-      _pagingController.appendLastPage(newPage);
-    } else {
-      final nextPageKey = pageKey + newPage.length;
-      _pagingController.appendPage(newPage, nextPageKey);
+      final isLastPage = newPage.length < 5;
+
+      final previouslyFetchedItemsCount = _pagingController.itemList?.length;
+
+      if (isLastPage) {
+        /// adding new page if we're in the last page
+        _pagingController.appendLastPage(newPage);
+      } else {
+        final nextPageKey = pageKey + newPage.length;
+        _pagingController.appendPage(newPage, nextPageKey);
+      }
+    } catch (e) {
+      print("The paging controller error is $e");
+      _pagingController.error = e;
     }
-    // }
-    // catch (e) {
-    //   print("The paging controller error is $e");
-    //   _pagingController.error = e;
-    // }
   }
 
   @override

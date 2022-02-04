@@ -25,22 +25,14 @@ class AirlineApi {
     }
   }
 
+  /// getModelList fetches the new data from API if we reach to the end of the list
   Future<List<ListInfoModel>> getModelList(int offset, int limit) async {
-    print("get model list called");
-
     final temp = await getPassengerWithSize(page: offset, size: limit);
 
-    print("temp data legth is ${temp["data"].length}");
-
     for (int i = 0; i < limit; i++) {
-      print("inside for loop");
-
       modelList.add(ListInfoModel.fromMap(temp["data"][i]));
       print(temp["data"][i]["name"]);
     }
-
-    print(modelList);
-
     return modelList;
   }
 
