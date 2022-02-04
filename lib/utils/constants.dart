@@ -7,10 +7,10 @@ InputDecoration kTextFieldInputDecoration(
       filled: true,
 
       focusColor: Colors.blue.shade400,
-      focusedBorder: const OutlineInputBorder(
+      focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(15)),
-          borderSide: const BorderSide(
-            color: Color(0xFFFFc529),
+          borderSide: BorderSide(
+            color: Colors.blue.shade400,
           )),
       isDense: true,
       prefixIcon: Icon(

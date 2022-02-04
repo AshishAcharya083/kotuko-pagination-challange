@@ -43,4 +43,19 @@ class AirlineApi {
 
     return modelList;
   }
+
+  static Future<Map<String, dynamic>> createPassenger(
+      String name, String trips, String airlineCode) async {
+    try {
+      http.Response response = await http.post(
+        Uri.parse("https://api.instantwebtools.net/v1/passenger"),
+        body: {"name": name, "trips": trips, "airline": airlineCode},
+      );
+      print("Passenger added SUCCESSFULLY");
+      return jsonDecode(response.body);
+    } catch (e) {
+      print("Create passenger error $e");
+      return {'error': e};
+    }
+  }
 }
