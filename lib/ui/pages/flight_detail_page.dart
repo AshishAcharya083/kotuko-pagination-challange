@@ -24,14 +24,35 @@ class AirlineDetailPage extends StatelessWidget {
 
   void _launchURL(String url) async {
     // await launch(url);
-    if (!await launch(url)) throw 'Could not launch $url';
+    if (!await launch("http://" + url)) throw 'Could not launch $url';
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(
+            Icons.arrow_back_ios,
+            color: Colors.black,
+          ),
+        ),
+        actionsIconTheme: IconThemeData(color: Colors.black),
+        centerTitle: true,
+        title: Text(
+          "Airline detail",
+          style: TextStyle(
+              fontWeight: FontWeight.bold, color: Colors.black, fontSize: 24),
+        ),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+      ),
       body: Padding(
         padding: EdgeInsets.symmetric(
+            vertical: ScreenSize.getWidth(context) * 0.05,
             horizontal: ScreenSize.getWidth(context) * 0.05),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -61,6 +82,9 @@ class AirlineDetailPage extends StatelessWidget {
                   fontSize: 16,
                   fontWeight: FontWeight.bold),
             ),
+            SizedBox(
+              height: ScreenSize.getHeight(context) * 0.02,
+            ),
             InkWell(
               onTap: () {
                 _launchURL(website!);
@@ -72,7 +96,18 @@ class AirlineDetailPage extends StatelessWidget {
                     fontSize: 16,
                     fontWeight: FontWeight.bold),
               ),
-            )
+            ),
+            SizedBox(
+              height: ScreenSize.getHeight(context) * 0.02,
+            ),
+            Text(
+              '" $slogan! "',
+              style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 24,
+                  fontStyle: FontStyle.italic,
+                  fontWeight: FontWeight.w600),
+            ),
           ],
         ),
       ),

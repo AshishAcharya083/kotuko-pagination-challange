@@ -29,9 +29,9 @@ class _PagedItemListViewState extends State<PagedItemListView> {
 
   Future<void> _fetchPage(int pageKey) async {
     // try {
-    final newPage = await widget.airlineApi!.getModelList(pageKey, 6);
+    final newPage = await widget.airlineApi!.getModelList(pageKey, 5);
     print('new page length is ${newPage.length}');
-    final isLastPage = newPage.length < 6;
+    final isLastPage = newPage.length < 5;
 
     final previouslyFetchedItemsCount = _pagingController.itemList?.length;
 

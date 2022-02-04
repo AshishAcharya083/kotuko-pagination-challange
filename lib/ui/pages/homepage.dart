@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:kotuko_coding_challange/core/service/airline_api.dart';
 import 'package:kotuko_coding_challange/ui/components/List_item_tile.dart';
+import 'package:kotuko_coding_challange/ui/pages/add_user_page.dart';
 import 'package:kotuko_coding_challange/ui/pages/paged_listview.dart';
 import 'package:kotuko_coding_challange/utils/screen_size.dart';
 
@@ -34,6 +35,23 @@ class _HomePageState extends State<HomePage> {
       ),
       body: PagedItemListView(
         airlineApi: airlineApi,
+      ),
+      floatingActionButton: FloatingActionButton(
+        elevation: 10,
+        // isExtended: true,
+        child: Icon(
+          Icons.add,
+          color: Colors.black,
+        ),
+        backgroundColor: Colors.white,
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => AddUser(),
+            ),
+          );
+        },
       ),
     );
   }
